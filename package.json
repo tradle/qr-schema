@@ -1,0 +1,21 @@
+{
+  "name": "@tradle/qr-schema",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tradle/qr-schema.git",
+  "author": "Mark Vayngrib <mark@tradle.io>",
+  "license": "MIT",
+  "dependencies": {
+    "buffer": "^5.0.6",
+    "protocol-buffers": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "husky": "^0.13.3",
+    "tape": "^4.6.3"
+  },
+  "scripts": {
+    "lint": "eslint --quiet --ignore-path .gitignore .",
+    "test": "node test"
+  }
+}
