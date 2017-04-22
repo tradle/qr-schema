@@ -7,7 +7,7 @@ const hex = [
 ]
 
 test('encode/decode', function (t) {
-  const input = {
+  const expected = {
     schema: 'ImportData',
     data: {
       provider: hex[0],
@@ -16,6 +16,16 @@ test('encode/decode', function (t) {
     }
   }
 
-  t.same(enc.fromHex(enc.toHex(input)), input)
+  const prebufferized = {
+    schema: 'ImportData',
+    data: {
+      provider: new Buffer(hex[0], 'hex'),
+      dataHash: new Buffer(hex[1], 'hex'),
+      host: 'https://blah.blah'
+    }
+  }
+
+  t.same(enc.fromHex(enc.toHex(expected)), expected)
+  t.same(enc.fromHex(enc.toHex(prebufferized)), expected)
   t.end()
 })
