@@ -1,5 +1,4 @@
 
-const { Buffer } = require('buffer')
 const clone = require('xtend')
 const messages = require('./schema')
 
