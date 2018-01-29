@@ -7,8 +7,7 @@
   "author": "Mark Vayngrib <mark@tradle.io>",
   "license": "MIT",
   "dependencies": {
-    "protocol-buffers": "^3.2.1",
-    "xtend": "^4.0.1"
+    "protocol-buffers": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

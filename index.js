@@ -1,5 +1,4 @@
 
-const clone = require('xtend')
 const messages = require('./schema')
 
 const CODERS = [
@@ -35,7 +34,7 @@ function hexify (decoded) {
 }
 
 function unhexify (data) {
-  data = clone(data)
+  data = Object.assign({}, data)
   if (typeof data.provider === 'string') {
     data.provider = new Buffer(data.provider, 'hex')
   }
