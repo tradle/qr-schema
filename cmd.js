@@ -2,20 +2,20 @@
 
 const { toHex, fromHex } = require('./')
 const argv = require('minimist')(process.argv.slice(2), {
+  string: ['host', 'provider', 'data-hash'],
   default: {
     host: ''
   }
 })
 
-if (argv._[0]) {
-  console.log(JSON.stringify(fromHex(argv._[0]), null, 2))
-} else {
-  console.log(toHex({
-    schema: 'ImportData',
-    data: {
-      host: argv.host,
-      provider: argv.provider,
-      dataHash: argv['data-hash']
-    }
-  }))
+const { host, provider } = argv
+const dataHash = argv['data-hash']
+const schema = dataHash ? 'ImportData' : 'AddProvider'
+const data = {
+  host,
+  provider,
+  dataHash
 }
+
+const result = toHex({ schema, data })
+console.log(`QR data for schema ${schema}: ${result}`)
