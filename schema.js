@@ -10,4 +10,10 @@ module.exports = require('protocol-buffers')(`
     required string host = 1;
     required bytes provider = 2;
   }
+
+  message ApplyForProduct {
+    required string host = 1;
+    required bytes provider = 2;
+    required string product = 3;
+  }
 `)
