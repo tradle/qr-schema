@@ -7,13 +7,15 @@
   "author": "Mark Vayngrib <mark@tradle.io>",
   "license": "MIT",
   "dependencies": {
+    "object.omit": "^3.0.0",
     "protocol-buffers": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
     "husky": "^0.13.3",
     "minimist": "^1.2.0",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "xtend": "^4.0.1"
   },
   "scripts": {
     "lint": "eslint --quiet --ignore-path .gitignore .",

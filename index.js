@@ -7,12 +7,15 @@ const CODERS = [
   messages.ApplyForProduct
 ]
 
+const links = require('./links')
+
 module.exports = {
   schema: messages,
   encode,
   decode,
   toHex,
-  fromHex
+  fromHex,
+  links
 }
 
 function toHex ({ schema, data }) {
