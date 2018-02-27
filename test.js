@@ -61,5 +61,11 @@ test('links', function (t) {
   t.equal(applyMobile1, 'https://link.tradle.io/applyForProduct?provider=abc&host=https%3A%2F%2Fsome.tradle.server&product=abc&contextId=efg')
   t.equal(applyWeb1, 'https://link.tradle.io/#/applyForProduct?provider=abc&host=https%3A%2F%2Fsome.tradle.server&product=abc&contextId=efg')
 
+  const applyPerPlatform = enc.links.getApplyForProductLinks(extend(base, { platform: 'mobile', product: 'abc', contextId: 'efg' }))
+  t.same(applyPerPlatform, {
+    mobile: 'https://link.tradle.io/applyForProduct?provider=abc&host=https%3A%2F%2Fsome.tradle.server&product=abc&contextId=efg',
+    web: 'https://link.tradle.io/#/applyForProduct?provider=abc&host=https%3A%2F%2Fsome.tradle.server&product=abc&contextId=efg'
+  })
+
   t.end()
 })

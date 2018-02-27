@@ -1,6 +1,7 @@
 const querystring = require('querystring')
 const omit = require('object.omit')
 const commonOpts = ['baseUrl', 'platform']
+const platforms = ['mobile', 'web']
 const omitCommon = obj => omit(obj, commonOpts)
 const checkRequired = (opts, required) => {
   for (const prop of required) {
@@ -26,8 +27,8 @@ const getAppLink = ({ baseUrl, path, query={}, platform }) => {
     throw new Error('expected string "baseUrl"')
   }
 
-  if (platform !== 'mobile' && platform !== 'web') {
-    throw new Error('expected "platform" to be "mobile" or "web"')
+  if (!platforms.includes(platform)) {
+    throw new Error(`expected "platform" to be one of: ${platforms.join(', ')}`)
   }
 
   const qs = querystring.stringify(pickNonNull(query))
@@ -93,10 +94,25 @@ const inferSchemaAndData = ({ provider, host, data }) => {
   }
 }
 
+const perPlatform = fn => opts => platforms.reduce((map, platform) => {
+  const pOpts = Object.assign({}, opts, { platform })
+  map[platform] = fn(pOpts)
+  return map
+}, {})
+
+const getAppLinks = perPlatform(getAppLink)
+const getChatLinks = perPlatform(getChatLink)
+const getImportDataLinks = perPlatform(getImportDataLink)
+const getApplyForProductLinks = perPlatform(getApplyForProductLink)
+
 module.exports = {
   getAppLink,
+  getAppLinks,
   getChatLink,
+  getChatLinks,
   getImportDataLink,
+  getImportDataLinks,
   getApplyForProductLink,
+  getApplyForProductLinks,
   inferSchemaAndData
 }
