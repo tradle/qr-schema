@@ -39,7 +39,7 @@ const getAppLink = ({ baseUrl, path, query={}, platform }) => {
   return `${baseUrl}/#/${path}?${qs}`
 }
 
-const CHAT_OPTS = commonOpts.concat(['provider', 'host'])
+const CHAT_OPTS = commonOpts.concat(['host'])
 const getChatLink = opts => {
   checkRequired(opts, CHAT_OPTS)
   return getAppLink({
