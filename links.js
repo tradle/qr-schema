@@ -72,6 +72,19 @@ const getApplyForProductLink = opts => {
   })
 }
 
+const getResourceLink = opts => {
+  const { type, link, permalink } = opts
+  if (!type) throw new Errors.InvalidInput('expected "type"')
+  if (!(link || permalink)) throw new Errors.InvalidInput('expected "link" or "permalink"')
+
+  return getAppLink({
+    path: 'r',
+    baseUrl: opts.baseUrl,
+    platform: opts.platform,
+    query: { type, link, permalink }
+  })
+}
+
 const inferSchemaAndData = ({ provider, host, data }) => {
   const { claimId, product } = data
   if (claimId) {
@@ -104,6 +117,7 @@ const getAppLinks = perPlatform(getAppLink)
 const getChatLinks = perPlatform(getChatLink)
 const getImportDataLinks = perPlatform(getImportDataLink)
 const getApplyForProductLinks = perPlatform(getApplyForProductLink)
+const getResourceLinks = perPlatform(getResourceLink)
 
 module.exports = {
   getAppLink,
@@ -114,5 +128,7 @@ module.exports = {
   getImportDataLinks,
   getApplyForProductLink,
   getApplyForProductLinks,
+  getResourceLink,
+  getResourceLinks,
   inferSchemaAndData
 }
