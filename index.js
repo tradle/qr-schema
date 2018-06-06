@@ -5,6 +5,7 @@ const CODERS = [
   messages.ImportData,
   messages.AddProvider,
   messages.ApplyForProduct,
+  messages.IdentityStub,
   messages.Profile,
 ]
 

@@ -17,4 +17,16 @@ module.exports = require('protocol-buffers')(`
     required string product = 3;
     optional bytes contextId = 4;
   }
+
+  message IdentityStub {
+    required bytes permalink = 1;
+    required bytes link = 2;
+  }
+
+  message Profile {
+    required bytes permalink = 1;
+    required bytes link = 2;
+    required string firstName = 3;
+    optional string lastName = 4;
+  }
 `)
