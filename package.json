@@ -1,6 +1,6 @@
 {
   "name": "@tradle/qr-schema",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "main": "index.js",
   "bin": "./cmd.js",
   "repository": "https://github.com/tradle/qr-schema.git",
