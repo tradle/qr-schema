@@ -29,4 +29,12 @@ module.exports = require('protocol-buffers')(`
     required string firstName = 3;
     optional string lastName = 4;
   }
+
+  message OrgProfile {
+    required bytes permalink = 1;
+    required bytes link = 2;
+    required bytes orgPermalink = 1;
+    required bytes orgLink = 2;
+    required string name = 3;
+  }
 `)
