@@ -4,8 +4,11 @@ const messages = require('./schema')
 const CODERS = [
   messages.ImportData,
   messages.AddProvider,
-  messages.ApplyForProduct
+  messages.ApplyForProduct,
+  messages.Profile,
 ]
+
+const HEX_PROPS = ['provider', 'dataHash', 'permalink', 'link']
 
 const links = require('./links')
 
@@ -26,26 +29,22 @@ function toHex ({ schema, data }) {
 
 function hexify (decoded) {
   const { data } = decoded
-  if (Buffer.isBuffer(data.provider)) {
-    data.provider = data.provider.toString('hex')
-  }
-
-  if (Buffer.isBuffer(data.dataHash)) {
-    data.dataHash = data.dataHash.toString('hex')
-  }
+  HEX_PROPS.forEach(prop => {
+    if (Buffer.isBuffer(data[prop])) {
+      data[prop] = data[prop].toString('hex')
+    }
+  })
 
   return decoded
 }
 
 function unhexify (data) {
   data = Object.assign({}, data)
-  if (typeof data.provider === 'string') {
-    data.provider = new Buffer(data.provider, 'hex')
-  }
-
-  if (typeof data.dataHash === 'string') {
-    data.dataHash = new Buffer(data.dataHash, 'hex')
-  }
+  HEX_PROPS.forEach(prop => {
+    if (typeof data[prop] === 'string') {
+      data[prop] = new Buffer(data[prop], 'hex')
+    }
+  })
 
   return data
 }
