@@ -1,3 +1,4 @@
+const parseUrl = require('url').parse
 const querystring = require('querystring')
 const omit = require('object.omit')
 const commonOpts = ['baseUrl', 'platform']
@@ -31,12 +32,30 @@ const getAppLink = ({ baseUrl, path, query={}, platform }) => {
     throw new Error(`expected "platform" to be one of: ${platforms.join(', ')}`)
   }
 
-  const qs = querystring.stringify(pickNonNull(query))
+  const qs = stringifyQuery(query)
   if (platform === 'mobile') {
     return `${baseUrl}/${path}?${qs}`
   }
 
   return `${baseUrl}/#/${path}?${qs}`
+}
+
+const stringifyQuery = query => {
+  query = pickNonNull(query)
+  const qsHex = new Buffer(querystring.stringify(query)).toString('hex')
+  return querystring.stringify({
+    qs: qsHex,
+  })
+}
+
+const parseQueryString = value => {
+  const query = querystring.parse(value)
+  if (query.qs) {
+    const decoded = new Buffer(query.qs, 'hex').toString('utf8')
+    return querystring.parse(decoded)
+  }
+
+  return query
 }
 
 const CHAT_OPTS = commonOpts.concat(['host'])
@@ -119,6 +138,15 @@ const getImportDataLinks = perPlatform(getImportDataLink)
 const getApplyForProductLinks = perPlatform(getApplyForProductLink)
 const getResourceLinks = perPlatform(getResourceLink)
 
+const parseLink = url => {
+  const parsed = parseUrl(url)
+  const qs = url.split('?')[1]
+  return {
+    ...parsed,
+    query: parseQueryString(qs),
+  }
+}
+
 module.exports = {
   getAppLink,
   getAppLinks,
@@ -130,5 +158,8 @@ module.exports = {
   getApplyForProductLinks,
   getResourceLink,
   getResourceLinks,
-  inferSchemaAndData
+  inferSchemaAndData,
+  stringifyQuery,
+  parseQueryString,
+  parseLink,
 }
