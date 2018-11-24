@@ -52,7 +52,7 @@ test('links', function (t) {
 
   t.equal(chatWeb, 'https://link.tradle.io/#/chat?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e736572766572')
 
-  const importQuery = { ...baseQuery, dataHash: 'abc' }
+  const importQuery = extend({ dataHash: 'abc' }, baseQuery)
   const importMobile = enc.links.getImportDataLink(extend(base, { platform: 'mobile', dataHash: importQuery.dataHash }))
   const importWeb = enc.links.getImportDataLink(extend(base, { platform: 'web', dataHash: importQuery.dataHash }))
 
@@ -72,7 +72,7 @@ test('links', function (t) {
   t.equal(applyMobile1, 'https://link.tradle.io/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d61626326636f6e7465787449643d656667')
   t.equal(applyWeb1, 'https://link.tradle.io/#/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d61626326636f6e7465787449643d656667')
 
-  const applyPerPlatformQuery = { ...baseQuery, product: 'abc', contextId: 'efg'  }
+  const applyPerPlatformQuery = extend({ product: 'abc', contextId: 'efg' }, baseQuery)
   const applyPerPlatform = enc.links.getApplyForProductLinks(extend(base, {
     platform: 'mobile',
     product: applyPerPlatformQuery.product,

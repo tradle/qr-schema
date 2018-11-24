@@ -1,3 +1,4 @@
+const extend = require('xtend/mutable')
 const parseUrl = require('url').parse
 const querystring = require('querystring')
 const omit = require('object.omit')
@@ -93,8 +94,8 @@ const getApplyForProductLink = opts => {
 
 const getResourceLink = opts => {
   const { type, link, permalink } = opts
-  if (!type) throw new Errors.InvalidInput('expected "type"')
-  if (!(link || permalink)) throw new Errors.InvalidInput('expected "link" or "permalink"')
+  if (!type) throw new Error('expected "type"')
+  if (!(link || permalink)) throw new Error('expected "link" or "permalink"')
 
   return getAppLink({
     path: 'r',
@@ -141,10 +142,9 @@ const getResourceLinks = perPlatform(getResourceLink)
 const parseLink = url => {
   const parsed = parseUrl(url)
   const qs = url.split('?')[1]
-  return {
-    ...parsed,
+  return extend(parsed, {
     query: parseQueryString(qs),
-  }
+  })
 }
 
 module.exports = {

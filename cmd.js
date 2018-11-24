@@ -18,4 +18,5 @@ const data = {
 }
 
 const result = toHex({ schema, data })
+// eslint-disable-next-line no-console
 console.log(`QR data for schema ${schema}: ${result}`)
