@@ -6,6 +6,12 @@ module.exports = require('protocol-buffers')(`
     optional string host = 3;
   }
 
+  message ProductAuthorization {
+    required string contextId = 1;
+    required string product = 2;
+    required string firstName = 3;
+  }
+
   message AddProvider {
     required string host = 1;
     required bytes provider = 2;
