@@ -6,6 +6,11 @@ module.exports = require('protocol-buffers')(`
     optional string host = 3;
   }
 
+  message PairingDevices {
+    required string key = 1;
+    required string nonce = 2;
+  }
+
   message ProductAuthorization {
     required string contextId = 1;
     required string product = 2;

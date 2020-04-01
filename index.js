@@ -4,6 +4,7 @@ const messages = require('./schema')
 const CODERS = [
   messages.ImportData,
   messages.AddProvider,
+  messages.PairingDevices,
   messages.ProductAuthorization,
   messages.ApplyForProduct,
   messages.IdentityStub,
