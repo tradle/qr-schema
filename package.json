@@ -13,7 +13,7 @@
   "devDependencies": {
     "eslint": "^3.19.0",
     "husky": "^0.13.3",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "tape": "^4.6.3",
     "xtend": "^4.0.1"
   },
