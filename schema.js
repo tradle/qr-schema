@@ -6,10 +6,9 @@ module.exports = require('protocol-buffers')(`
     optional string host = 3;
   }
 
-  message PairingDevices {
+  message Pair {
     required string key = 1;
-    required string nonce = 2;
-    required string url = 3;
+    required string url = 2;
   }
 
   message ProductAuthorization {
