@@ -52,9 +52,10 @@ const parseQueryString = value => {
   const query = querystring.parse(value)
   if (query.qs) {
     const decoded = Buffer.from(query.qs, 'hex').toString('utf8')
+    return Object.assign({}, querystring.parse(decoded))
   }
 
-  return query
+  return Object.assign({}, query)
 }
 
 const CHAT_OPTS = commonOpts.concat(['host'])
