@@ -22,9 +22,9 @@
     "typescript": "^4.4.4"
   },
   "scripts": {
-    "prepare": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && protocol-buffers-dts schema.proto -o schema.d.ts && standard --fix",
+    "build": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && protocol-buffers-dts schema.proto -o schema.d.ts && standard --fix",
     "lint": "standard && dtslint --localTs node_modules/typescript/lib types",
-    "test": "npm run prepare && npm run test:unit && npm run lint",
+    "test": "npm run test:unit && npm run lint",
     "test:unit": "tape test.js"
   }
 }
