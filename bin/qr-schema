@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { toHex, links } = require('./')
+const { toHex, links } = require('..')
 const argv = require('minimist')(process.argv.slice(2), {
   string: ['host', 'provider', 'platform', 'product', 'data-hash'],
   default: {

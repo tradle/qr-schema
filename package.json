@@ -2,7 +2,7 @@
   "name": "@tradle/qr-schema",
   "version": "2.0.5",
   "main": "index.js",
-  "bin": "./cmd.js",
+  "bin": "bin/qr-schema",
   "repository": "https://github.com/tradle/qr-schema.git",
   "author": "Mark Vayngrib <mark@tradle.io>",
   "license": "MIT",
