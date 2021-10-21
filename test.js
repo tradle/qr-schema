@@ -1,4 +1,3 @@
-const querystring = require('querystring')
 const extend = (a, b) => Object.assign({}, a, b)
 const test = require('tape')
 const enc = require('./')
