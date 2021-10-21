@@ -1,4 +1,3 @@
-const extend = require('xtend/mutable')
 const parseUrl = require('url').parse
 const querystring = require('querystring')
 const omit = require('object.omit')
@@ -141,8 +140,8 @@ const getResourceLinks = perPlatform(getResourceLink)
 const parseLink = url => {
   const parsed = parseUrl(url)
   const qs = url.split('?')[1]
-  return extend(parsed, {
-    query: parseQueryString(qs),
+  return Object.assign(parsed, {
+    query: parseQueryString(qs)
   })
 }
 

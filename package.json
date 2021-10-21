@@ -14,8 +14,7 @@
     "eslint": "^3.19.0",
     "husky": "^0.13.3",
     "minimist": "^1.2.0",
-    "tape": "^4.6.3",
-    "xtend": "^4.0.1"
+    "tape": "^4.6.3"
   },
   "scripts": {
     "lint": "eslint --quiet --ignore-path .gitignore .",
