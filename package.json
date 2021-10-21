@@ -7,12 +7,12 @@
   "author": "Mark Vayngrib <mark@tradle.io>",
   "license": "MIT",
   "dependencies": {
+    "minimist": "^1.2.0",
     "object.omit": "^3.0.0",
     "protocol-buffers": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
-    "minimist": "^1.2.0",
     "tape": "^4.6.3"
   },
   "scripts": {
