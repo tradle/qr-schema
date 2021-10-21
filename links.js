@@ -1,4 +1,4 @@
-const parseUrl = require('url').parse
+const URL = require('url').URL
 const querystring = require('querystring')
 const omit = require('object.omit')
 const commonOpts = ['baseUrl', 'platform']
@@ -138,7 +138,7 @@ const getApplyForProductLinks = perPlatform(getApplyForProductLink)
 const getResourceLinks = perPlatform(getResourceLink)
 
 const parseLink = url => {
-  const parsed = parseUrl(url)
+  const parsed = new URL(url)
   const qs = url.split('?')[1]
   return Object.assign(parsed, {
     query: parseQueryString(qs)
