@@ -45,7 +45,7 @@ function unhexify (data) {
   data = Object.assign({}, data)
   HEX_PROPS.forEach(prop => {
     if (typeof data[prop] === 'string') {
-      data[prop] = new Buffer(data[prop], 'hex')
+      data[prop] = Buffer.from(data[prop], 'hex')
     }
   })
 
@@ -53,7 +53,7 @@ function unhexify (data) {
 }
 
 function fromHex (data) {
-  return hexify(decode(new Buffer(data, 'hex')))
+  return hexify(decode(Buffer.from(data, 'hex')))
 }
 
 function encode ({ schema, data }) {
@@ -61,14 +61,14 @@ function encode ({ schema, data }) {
   if (!encoder) throw new Error('encoder not found')
 
   data = unhexify(data)
-  const buf = new Buffer(encoder.encodingLength(data) + 1)
+  const buf = Buffer.alloc(encoder.encodingLength(data) + 1)
   buf[0] = CODERS.indexOf(encoder)
   encoder.encode(data, buf, 1)
   return buf.toString('hex')
 }
 
 function decode (buffer) {
-  if (typeof buffer === 'string') buffer = new Buffer(buffer, 'hex')
+  if (typeof buffer === 'string') buffer = Buffer.from(buffer, 'hex')
 
   const type = buffer[0]
   const decoder = CODERS[type]

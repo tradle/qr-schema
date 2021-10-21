@@ -20,8 +20,8 @@ test('encode/decode', function (t) {
   const prebufferized = {
     schema: 'ImportData',
     data: {
-      provider: new Buffer(hex[0], 'hex'),
-      dataHash: new Buffer(hex[1], 'hex'),
+      provider: Buffer.from(hex[0], 'hex'),
+      dataHash: Buffer.from(hex[1], 'hex'),
       host: 'https://blah.blah'
     }
   }

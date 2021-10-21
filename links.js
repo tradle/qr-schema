@@ -43,7 +43,7 @@ const getAppLink = ({ baseUrl, path, query={}, platform }) => {
 
 const stringifyQuery = query => {
   query = pickNonNull(query)
-  const qsHex = new Buffer(querystring.stringify(query)).toString('hex')
+  const qsHex = Buffer.from(querystring.stringify(query)).toString('hex')
   return querystring.stringify({
     qs: qsHex,
   })
@@ -52,8 +52,7 @@ const stringifyQuery = query => {
 const parseQueryString = value => {
   const query = querystring.parse(value)
   if (query.qs) {
-    const decoded = new Buffer(query.qs, 'hex').toString('utf8')
-    return querystring.parse(decoded)
+    const decoded = Buffer.from(query.qs, 'hex').toString('utf8')
   }
 
   return query
