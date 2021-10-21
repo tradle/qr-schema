@@ -39,7 +39,7 @@ test('links', function (t) {
 
   const baseQuery = {
     provider: base.provider,
-    host: base.host,
+    host: base.host
   }
 
   const chatMobile = enc.links.getChatLink(extend(base, { platform: 'mobile' }))

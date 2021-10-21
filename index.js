@@ -8,7 +8,7 @@ const CODERS = [
   messages.ProductAuthorization,
   messages.ApplyForProduct,
   messages.IdentityStub,
-  messages.Profile,
+  messages.Profile
 ]
 
 const HEX_PROPS = ['provider', 'dataHash', 'permalink', 'link']

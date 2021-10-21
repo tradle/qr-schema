@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const { toHex, fromHex, links } = require('./')
+const { toHex, links } = require('./')
 const argv = require('minimist')(process.argv.slice(2), {
   string: ['host', 'provider', 'platform', 'product', 'data-hash'],
   default: {
-    host: '',
-  },
+    host: ''
+  }
 })
 
 const getSchema = ({ product, dataHash }) => {
@@ -21,7 +21,6 @@ const getLinkFn = ({ product, dataHash }) => {
   return links.getChatLinks
 }
 
-const { host, provider, product } = argv
 const data = Object.assign({}, argv, { dataHash: argv['data-hash'] })
 const schema = getSchema(data)
 

@@ -14,7 +14,7 @@ const checkRequired = (opts, required) => {
 
 const pickNonNull = obj => {
   const picked = {}
-  for (let key in obj) {
+  for (const key in obj) {
     if (obj[key] != null) {
       picked[key] = obj[key]
     }
@@ -23,7 +23,7 @@ const pickNonNull = obj => {
   return picked
 }
 
-const getAppLink = ({ baseUrl, path, query={}, platform }) => {
+const getAppLink = ({ baseUrl, path, query = {}, platform }) => {
   if (!baseUrl) {
     throw new Error('expected string "baseUrl"')
   }
@@ -44,7 +44,7 @@ const stringifyQuery = query => {
   query = pickNonNull(query)
   const qsHex = Buffer.from(querystring.stringify(query)).toString('hex')
   return querystring.stringify({
-    qs: qsHex,
+    qs: qsHex
   })
 }
 
@@ -159,5 +159,5 @@ module.exports = {
   inferSchemaAndData,
   stringifyQuery,
   parseQueryString,
-  parseLink,
+  parseLink
 }
