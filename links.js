@@ -1,5 +1,5 @@
 const URL = require('url').URL
-const querystring = require('querystring')
+const URLSearchParams = require('url').URLSearchParams
 const omit = require('object.omit')
 const commonOpts = ['baseUrl', 'platform']
 const platforms = ['mobile', 'web']
@@ -40,22 +40,32 @@ const getAppLink = ({ baseUrl, path, query = {}, platform }) => {
   return `${baseUrl}/#/${path}?${qs}`
 }
 
+const searchParamString = query => (new URLSearchParams(query)).toString()
+
 const stringifyQuery = query => {
   query = pickNonNull(query)
-  const qsHex = Buffer.from(querystring.stringify(query)).toString('hex')
-  return querystring.stringify({
+  const qsHex = Buffer.from(searchParamString(query)).toString('hex')
+  return searchParamString({
     qs: qsHex
   })
 }
 
+const paramsToObject = params => {
+  const result = {}
+  Array.from(params.keys()).forEach(key => {
+    result[key] = params.get(key)
+  })
+  return result
+}
+
 const parseQueryString = value => {
-  const query = querystring.parse(value)
+  const query = paramsToObject(new URLSearchParams(value))
   if (query.qs) {
     const decoded = Buffer.from(query.qs, 'hex').toString('utf8')
-    return Object.assign({}, querystring.parse(decoded))
+    return paramsToObject(new URLSearchParams(decoded))
   }
 
-  return Object.assign({}, query)
+  return query
 }
 
 const CHAT_OPTS = commonOpts.concat(['host'])
