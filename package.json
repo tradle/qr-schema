@@ -9,14 +9,17 @@
   "dependencies": {
     "minimist": "^1.2.0",
     "object.omit": "^3.0.0",
-    "protocol-buffers": "^3.2.1"
+    "protocol-buffers-encodings": "^1.1.1"
   },
   "devDependencies": {
+    "protocol-buffers": "^4.2.0",
     "standard": "^16.0.4",
     "tape": "^4.6.3"
   },
   "scripts": {
+    "prepare": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && standard --fix",
     "lint": "standard",
-    "test": "node test"
+    "test": "npm run prepare && npm run test:unit && npm run lint",
+    "test:unit": "tape test.js"
   }
 }

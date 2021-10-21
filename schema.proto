@@ -1,0 +1,48 @@
+message ImportData {
+  required bytes provider = 1;
+  required bytes dataHash = 2;
+  optional string host = 3;
+}
+
+message Pair {
+  required string key = 1;
+  required string url = 2;
+}
+
+message ProductAuthorization {
+  required string contextId = 1;
+  required string product = 2;
+  required string firstName = 3;
+}
+
+message AddProvider {
+  required string host = 1;
+  required bytes provider = 2;
+}
+
+message ApplyForProduct {
+  required string host = 1;
+  required bytes provider = 2;
+  required string product = 3;
+  optional bytes contextId = 4;
+}
+
+message IdentityStub {
+  required bytes permalink = 1;
+  required bytes link = 2;
+}
+
+message Profile {
+  required bytes permalink = 1;
+  required bytes link = 2;
+  required string firstName = 3;
+  optional string lastName = 4;
+}
+
+message OrgProfile {
+  required bytes permalink = 1;
+  required bytes link = 2;
+  required bytes orgPermalink = 3;
+  required bytes orgLink = 4;
+  required string name = 5;
+}

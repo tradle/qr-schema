@@ -10,6 +10,11 @@ const CODERS = [
   messages.IdentityStub,
   messages.Profile
 ]
+for (const name in messages) {
+  const coder = messages[name]
+  coder.name = name
+}
+Object.freeze(messages)
 
 const HEX_PROPS = ['provider', 'dataHash', 'permalink', 'link']
 
