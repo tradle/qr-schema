@@ -1,7 +1,7 @@
 {
   "name": "@tradle/qr-schema",
   "description": "Data parser and creator for deep links of mycloud.",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "main": "index.js",
   "bin": "bin/qr-schema",
   "repository": "https://github.com/tradle/qr-schema.git",
