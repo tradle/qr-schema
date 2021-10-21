@@ -6,19 +6,23 @@
   "repository": "https://github.com/tradle/qr-schema.git",
   "author": "Mark Vayngrib <mark@tradle.io>",
   "license": "MIT",
+  "types": "types",
   "dependencies": {
     "minimist": "^1.2.0",
     "object.omit": "^3.0.0",
     "protocol-buffers-encodings": "^1.1.1"
   },
   "devDependencies": {
+    "dtslint": "^4.2.0",
     "protocol-buffers": "^4.2.0",
+    "protocol-buffers-dts": "^1.0.0",
     "standard": "^16.0.4",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "typescript": "^4.4.4"
   },
   "scripts": {
-    "prepare": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && standard --fix",
-    "lint": "standard",
+    "prepare": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && protocol-buffers-dts schema.proto -o schema.d.ts && standard --fix",
+    "lint": "standard && dtslint --localTs node_modules/typescript/lib types",
     "test": "npm run prepare && npm run test:unit && npm run lint",
     "test:unit": "tape test.js"
   }
