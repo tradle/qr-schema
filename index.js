@@ -1,5 +1,5 @@
 
-const messages = require('./schema')
+const messages = require('./schema.js')
 
 const CODERS = [
   messages.ImportData,
