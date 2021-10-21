@@ -8,11 +8,14 @@ const CODERS = [
   messages.ProductAuthorization,
   messages.ApplyForProduct,
   messages.IdentityStub,
-  messages.Profile
+  messages.Profile,
+  messages.OrgProfile
 ]
+// Adding name and index to all schema
 for (const name in messages) {
   const coder = messages[name]
   coder.name = name
+  coder.type = CODERS.indexOf(coder)
 }
 Object.freeze(messages)
 
