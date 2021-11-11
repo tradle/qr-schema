@@ -1,5 +1,5 @@
-const URL = require('url').URL
-const URLSearchParams = require('url').URLSearchParams
+const URL = global.URL || require('url').URL
+const URLSearchParams = global.URLSearchParams || require('url').URLSearchParams
 const omit = require('object.omit')
 const commonOpts = ['baseUrl', 'platform']
 const platforms = ['mobile', 'web']
