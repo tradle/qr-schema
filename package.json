@@ -16,15 +16,21 @@
     "urlsafe-base64": "^1.0.0"
   },
   "devDependencies": {
+    "browserify": "^17.0.0",
     "dtslint": "^4.2.0",
     "protocol-buffers": "^4.2.0",
     "protocol-buffers-dts": "^1.0.0",
     "standard": "^16.0.4",
     "tape": "^4.6.3",
+    "terser": "^5.9.0",
     "typescript": "^4.4.4"
   },
   "scripts": {
-    "build": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && protocol-buffers-dts schema.proto -o schema.d.ts && standard --fix",
+    "build": "npm run build:pb && npm run build:pb.ts && npm run build:browser",
+    "build:pb": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && standard --fix",
+    "build:pb.ts": "protocol-buffers-dts schema.proto -o schema.d.ts",
+    "build:browser": "browserify -e . -s tradle.QRSchema | terser --compress > index.bundle.min.js",
+    "prepack": "npm run build",
     "lint": "standard && dtslint --localTs node_modules/typescript/lib types",
     "test": "npm run test:unit && npm run lint",
     "test:unit": "tape test.js"
