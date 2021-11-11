@@ -10,8 +10,10 @@
   "types": "types",
   "dependencies": {
     "minimist": "^1.2.0",
+    "msgpack-codec": "^1.0.5",
     "object.omit": "^3.0.0",
-    "protocol-buffers-encodings": "^1.1.1"
+    "protocol-buffers-encodings": "^1.1.1",
+    "urlsafe-base64": "^1.0.0"
   },
   "devDependencies": {
     "dtslint": "^4.2.0",

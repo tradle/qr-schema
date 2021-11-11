@@ -9,3 +9,6 @@ toHex({
   data: 'abcd',
   schema: 'abcd'
 });
+
+links.parseQueryString(links.stringifyQuery({}));
+links.stringifyQuery({}, true);

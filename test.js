@@ -30,6 +30,23 @@ test('encode/decode', function (t) {
   t.end()
 })
 
+test('parse/stringify', function (t) {
+  function io (input, expected) {
+    const stringified = enc.links.stringifyQuery(input)
+    t.equals(stringified, expected)
+    const parsed = enc.links.parseQueryString(stringified)
+    t.deepEquals(parsed, input)
+  }
+
+  [
+    [{ hello: 'world' }, 'q=gaVoZWxsb6V3b3JsZA'],
+    [{ こんにちは: '世界' }, 'q=ga_jgZPjgpPjgavjgaHjga-m5LiW55WM'],
+    [{ a: 1 }, 'q=gaFhAQ']
+  ].forEach(([input, expected]) => io(input, expected))
+
+  t.end()
+})
+
 test('links', function (t) {
   const base = {
     baseUrl: 'https://link.tradle.io',
@@ -46,30 +63,30 @@ test('links', function (t) {
   const chatWeb = enc.links.getChatLink(extend(base, { platform: 'web' }))
 
   const chatQuery = baseQuery
-  t.equal(chatMobile, 'https://link.tradle.io/chat?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e736572766572')
+  t.equal(chatMobile, 'https://link.tradle.io/chat?q=gqhwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcg')
   t.same(enc.links.parseQueryString(chatMobile.split('?')[1]), chatQuery)
 
-  t.equal(chatWeb, 'https://link.tradle.io/#/chat?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e736572766572')
+  t.equal(chatWeb, 'https://link.tradle.io/#/chat?q=gqhwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcg')
 
   const importQuery = extend({ dataHash: 'abc' }, baseQuery)
   const importMobile = enc.links.getImportDataLink(extend(base, { platform: 'mobile', dataHash: importQuery.dataHash }))
   const importWeb = enc.links.getImportDataLink(extend(base, { platform: 'web', dataHash: importQuery.dataHash }))
 
-  t.equal(importMobile, 'https://link.tradle.io/chat?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722664617461486173683d616263')
-  t.equal(importWeb, 'https://link.tradle.io/#/chat?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722664617461486173683d616263')
+  t.equal(importMobile, 'https://link.tradle.io/chat?q=g6hwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqhkYXRhSGFzaKNhYmM')
+  t.equal(importWeb, 'https://link.tradle.io/#/chat?q=g6hwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqhkYXRhSGFzaKNhYmM')
   t.same(enc.links.parseQueryString(importMobile.split('?')[1]), importQuery)
 
   const applyMobile = enc.links.getApplyForProductLink(extend(base, { platform: 'mobile', product: 'abc' }))
   const applyWeb = enc.links.getApplyForProductLink(extend(base, { platform: 'web', product: 'abc' }))
 
-  t.equal(applyMobile, 'https://link.tradle.io/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d616263')
-  t.equal(applyWeb, 'https://link.tradle.io/#/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d616263')
+  t.equal(applyMobile, 'https://link.tradle.io/applyForProduct?q=g6hwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqdwcm9kdWN0o2FiYw')
+  t.equal(applyWeb, 'https://link.tradle.io/#/applyForProduct?q=g6hwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqdwcm9kdWN0o2FiYw')
 
   const applyMobile1 = enc.links.getApplyForProductLink(extend(base, { platform: 'mobile', product: 'abc', contextId: 'efg' }))
   const applyWeb1 = enc.links.getApplyForProductLink(extend(base, { platform: 'web', product: 'abc', contextId: 'efg' }))
 
-  t.equal(applyMobile1, 'https://link.tradle.io/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d61626326636f6e7465787449643d656667')
-  t.equal(applyWeb1, 'https://link.tradle.io/#/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d61626326636f6e7465787449643d656667')
+  t.equal(applyMobile1, 'https://link.tradle.io/applyForProduct?q=hKhwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqdwcm9kdWN0o2FiY6ljb250ZXh0SWSjZWZn')
+  t.equal(applyWeb1, 'https://link.tradle.io/#/applyForProduct?q=hKhwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqdwcm9kdWN0o2FiY6ljb250ZXh0SWSjZWZn')
 
   const applyPerPlatformQuery = extend({ product: 'abc', contextId: 'efg' }, baseQuery)
   const applyPerPlatform = enc.links.getApplyForProductLinks(extend(base, {
@@ -79,8 +96,8 @@ test('links', function (t) {
   }))
 
   t.same(applyPerPlatform, {
-    mobile: 'https://link.tradle.io/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d61626326636f6e7465787449643d656667',
-    web: 'https://link.tradle.io/#/applyForProduct?qs=70726f76696465723d61626326686f73743d6874747073253341253246253246736f6d652e747261646c652e7365727665722670726f647563743d61626326636f6e7465787449643d656667'
+    mobile: 'https://link.tradle.io/applyForProduct?q=hKhwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqdwcm9kdWN0o2FiY6ljb250ZXh0SWSjZWZn',
+    web: 'https://link.tradle.io/#/applyForProduct?q=hKhwcm92aWRlcqNhYmOkaG9zdLpodHRwczovL3NvbWUudHJhZGxlLnNlcnZlcqdwcm9kdWN0o2FiY6ljb250ZXh0SWSjZWZn'
   })
 
   // console.log(JSON.stringify(enc.links.parseLink(applyPerPlatform.mobile), null, 2))

@@ -23,7 +23,7 @@ const pickNonNull = obj => {
   return picked
 }
 
-const getAppLink = ({ baseUrl, path, query = {}, platform }) => {
+const getAppLink = ({ baseUrl, path, query = {}, platform, unpacked }) => {
   if (!baseUrl) {
     throw new Error('expected string "baseUrl"')
   }
@@ -32,7 +32,7 @@ const getAppLink = ({ baseUrl, path, query = {}, platform }) => {
     throw new Error(`expected "platform" to be one of: ${platforms.join(', ')}`)
   }
 
-  const qs = stringifyQuery(query)
+  const qs = stringifyQuery(query, unpacked)
   if (platform === 'mobile') {
     return `${baseUrl}/${path}?${qs}`
   }
@@ -42,8 +42,12 @@ const getAppLink = ({ baseUrl, path, query = {}, platform }) => {
 
 const searchParamString = query => (new URLSearchParams(query)).toString()
 
-const stringifyQuery = query => {
+const stringifyQuery = (query, unpacked) => {
   query = pickNonNull(query)
+  if (!unpacked) {
+    const q = require('urlsafe-base64').encode(require('msgpack-codec').encode(query))
+    return searchParamString({ q })
+  }
   const qsHex = Buffer.from(searchParamString(query)).toString('hex')
   return searchParamString({
     qs: qsHex
@@ -60,6 +64,9 @@ const paramsToObject = params => {
 
 const parseQueryString = value => {
   const query = paramsToObject(new URLSearchParams(value))
+  if (query.q) {
+    return require('msgpack-codec').decode(require('urlsafe-base64').decode(query.q))
+  }
   if (query.qs) {
     const decoded = Buffer.from(query.qs, 'hex').toString('utf8')
     return paramsToObject(new URLSearchParams(decoded))
@@ -75,6 +82,7 @@ const getChatLink = opts => {
     path: 'chat',
     baseUrl: opts.baseUrl,
     platform: opts.platform,
+    unpacked: opts.unpacked,
     query: omitCommon(opts)
   })
 }
@@ -86,6 +94,7 @@ const getImportDataLink = opts => {
     path: 'chat',
     baseUrl: opts.baseUrl,
     platform: opts.platform,
+    unpacked: opts.unpacked,
     query: omitCommon(opts)
   })
 }
@@ -97,6 +106,7 @@ const getApplyForProductLink = opts => {
     path: 'applyForProduct',
     baseUrl: opts.baseUrl,
     platform: opts.platform,
+    unpacked: opts.unpacked,
     query: omitCommon(opts)
   })
 }
@@ -110,6 +120,7 @@ const getResourceLink = opts => {
     path: 'r',
     baseUrl: opts.baseUrl,
     platform: opts.platform,
+    unpacked: opts.unpacked,
     query: { type, link, permalink }
   })
 }
@@ -150,9 +161,8 @@ const getResourceLinks = perPlatform(getResourceLink)
 
 const parseLink = url => {
   const parsed = new URL(url)
-  const qs = url.split('?')[1]
   return Object.assign(parsed, {
-    query: parseQueryString(qs)
+    query: parseQueryString(parsed.search)
   })
 }
 
