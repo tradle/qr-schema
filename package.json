@@ -30,7 +30,6 @@
     "build:pb": "protocol-buffers schema.proto -o schema.js && echo \"/* eslint-disable no-var */\\n$(cat schema.js)\\n\" > schema.js && standard --fix",
     "build:pb.ts": "protocol-buffers-dts schema.proto -o schema.d.ts",
     "build:browser": "browserify -e . -s tradle.QRSchema | terser --compress > index.bundle.min.js",
-    "prepack": "npm run build",
     "lint": "standard && dtslint --localTs node_modules/typescript/lib types",
     "test": "npm run test:unit && npm run lint",
     "test:unit": "tape test.js"
