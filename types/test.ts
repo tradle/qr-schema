@@ -1,4 +1,4 @@
-import { links, toHex } from '@tradle/qr-schema';
+import { links, toHex, schema } from '@tradle/qr-schema';
 
 links.getAppLink({
   path: 'abcd',
@@ -13,3 +13,4 @@ toHex({
 links.parseQueryString(links.stringifyQuery({}));
 links.stringifyQuery({}, true);
 const query: any = links.parseLink('https://google.com').query;
+schema.AddProvider.decode(Buffer.from('abcd'));
