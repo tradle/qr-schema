@@ -12,3 +12,4 @@ toHex({
 
 links.parseQueryString(links.stringifyQuery({}));
 links.stringifyQuery({}, true);
+const query: any = links.parseLink('https://google.com').query;

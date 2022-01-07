@@ -37,6 +37,9 @@ declare namespace links {
 
   function stringifyQuery(query: Query, unpacked?: boolean): string;
   function parseQueryString(query: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>): any
+  function parseLink(url: string | URL): URL & {
+    query: any
+  }
 }
 
 export = links
