@@ -3,3 +3,5 @@ npm-debug.log
 coverage
 index.bundle.min.js
 *.tgz
+package-lock.json
+
